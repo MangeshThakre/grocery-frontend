@@ -4,6 +4,7 @@ import { useState, useContext, useRef, useEffect } from "react";
 import { TodoContext } from "../context/Contex";
 
 function AddTodo() {
+  const URL = process.env.REACT_APP_URL;
   const [addTodo, setAddTodo] = useState(false);
   const [newTodo, setNewTodo] = useState("");
   const newTodoInput = useRef(null);
@@ -16,7 +17,7 @@ function AddTodo() {
     try {
       const response = await axios({
         method: "post",
-        url: "/api/create_todo",
+        url: URL + "/api/create_todo",
         data: { title: newTodo },
       });
       const data = response.data;
@@ -112,7 +113,8 @@ function AddTodo() {
           <div className="flex items-center justify-between">
             <button
               type="submit"
-              className="flex  w-20 justify-center items-center cursor-pointer py-2 mr-3 px-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none "
+              style={{ width: "7rem" }}
+              className="flex  justify-center items-center cursor-pointer py-2 mr-3 px-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none "
             >
               Add Todo
               {isNewTodoLoading ? (

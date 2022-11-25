@@ -68,6 +68,7 @@ function DeletePopUp({ todoData, setTodoData, deletePopUp, setDeletePopUp }) {
       {deletePopUp.display ? (
         <div
           id="popup-modal"
+          style={{ backgroundColor: "#00000078" }}
           tabIndex="-1"
           className="overflow-y-auto overflow-x-hidden fixed flex items-center justify-center   top-0 right-0 left-0 z-50 p-4 md:inset-0 h-modal md:h-full"
         >

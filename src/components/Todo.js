@@ -5,6 +5,7 @@ import { TodoContext } from "../context/Contex";
 import AddTask from "./AddTask.js";
 
 function Todo({ todo, showTodoList, setShowTodoList }) {
+  const URL = process.env.REACT_APP_URL;
   const { todoData, setTodoData, deletePopUp, setDeletePopUp, notify } =
     useContext(TodoContext);
   const [isTodoTitleEdit, setIsTodoTitleEdit] = useState(false);
@@ -18,7 +19,7 @@ function Todo({ todo, showTodoList, setShowTodoList }) {
     try {
       const response = await axios({
         method: "put",
-        url: "/api/update_todo_title",
+        url: URL + "/api/update_todo_title",
         data: { todoId: currentTodo._id, title: currentTodo.title },
       });
       const data = response.data;
@@ -123,7 +124,7 @@ function Todo({ todo, showTodoList, setShowTodoList }) {
                     : null
                 }
               >
-                {currentTodo.title}
+                {todo.title}
               </span>
             )}
           </span>

@@ -4,6 +4,7 @@ import loading from "../assets/loading.svg";
 import { TodoContext } from "../context/Contex.js";
 
 function TaskList({ currentTask, currentTodo }) {
+  const URL = process.env.REACT_APP_URL;
   const { todoData, setTodoData, deletePopUp, setDeletePopUp, notify } =
     useContext(TodoContext);
   const [isEdit, setIsEdit] = useState(false);
@@ -14,12 +15,12 @@ function TaskList({ currentTask, currentTodo }) {
 
   // edit task
   async function handleEditTask(e) {
-    e.preventDefault();
+    if (e) e.preventDefault();
     setIsTaskLoading(true);
     try {
       const response = await axios({
         method: "put",
-        url: "/api/update_task",
+        url: URL + "/api/update_task",
         data: {
           todoId: currentTodo._id,
           taskId: currentTask._id,
@@ -113,7 +114,6 @@ function TaskList({ currentTask, currentTodo }) {
                       checked: true,
                     };
                   });
-                  handleEditTask();
                 }}
               >
                 <svg
