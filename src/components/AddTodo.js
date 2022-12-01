@@ -9,7 +9,8 @@ function AddTodo() {
   const [newTodo, setNewTodo] = useState("");
   const newTodoInput = useRef(null);
   const [isNewTodoLoading, setIsNewTodoLoading] = useState(false);
-  const { todoData, setTodoData, notify } = useContext(TodoContext);
+  const { todoData, setTodoData, notify, userData, setSearch } =
+    useContext(TodoContext);
 
   async function handlenewTodo(e) {
     e.preventDefault();
@@ -17,8 +18,8 @@ function AddTodo() {
     try {
       const response = await axios({
         method: "post",
-        url: URL + "/api/create_todo",
-        data: { title: newTodo },
+        url: URL + "/v1/todo",
+        data: { userId: userData.$id, title: newTodo },
       });
       const data = response.data;
       const newtodoData = [data.data, ...todoData];
@@ -33,14 +34,19 @@ function AddTodo() {
     }
   }
 
+  function handleSearch(e) {
+    e.preventDefault();
+    setSearch(e.target[0].value);
+  }
+
   useEffect(() => {
     if (addTodo) newTodoInput.current.focus();
   }, [addTodo]);
 
   return (
     <div className=" flex flex-col justify-between">
-      {/* add Button */}
-      <div className="  my-10 flex justify-center items-end ">
+      <div className="  my-10 flex justify-between px-4 items-end  flex-wrap">
+        {/* add Button */}
         <button
           disabled={addTodo}
           onClick={() => setAddTodo(true)}
@@ -48,7 +54,7 @@ function AddTodo() {
           className={
             addTodo
               ? " cursor-not-allowed  py-2 px-3 mr-2 text-sm font-medium  rounded-lg border   focus:z-10 focus:ring-4 focus:outline-none focus:ring-blue-700 focus:text-blue-700   border-gray-600 text-gray-600 bg-gray-700 inline-flex items-center"
-              : "cursor-pointer  py-2 px-3 mr-2 text-sm font-medium  rounded-lg border border-gray-200  focus:z-10 focus:ring-4 focus:outline-none focus:ring-blue-700 focus:text-blue-700 bg-gray-800 text-gray-400 dark:border-gray-600 hover:text-white hover:bg-gray-700 inline-flex items-center"
+              : "cursor-pointer  py-2 px-3 mr-2 text-sm font-medium  rounded-lg border   focus:z-10 focus:ring-4 focus:outline-none focus:ring-blue-700 focus:text-blue-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700 inline-flex items-center"
           }
         >
           <svg
@@ -65,9 +71,62 @@ function AddTodo() {
           </svg>
           Add Todo
         </button>
-        {/* add Button */}
+        {/* add todo button */}
+        {/* filter */}
+
+        <div>
+          <form className="flex items-center" onSubmit={(e) => handleSearch(e)}>
+            <label htmlFor="simple-search" className="sr-only">
+              Search
+            </label>
+            <div className="relative w-full">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg
+                  aria-hidden="true"
+                  className="w-5 h-5  text-gray-400"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+              </div>
+              <input
+                type="text"
+                id="simple-search"
+                className=" text-sm rounded-lg   block w-full pl-10 p-2.5  bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Search"
+              />
+            </div>
+            <button
+              type="submit"
+              className="p-2.5 ml-2 text-sm font-medium text-white  rounded-lg border border-blue-700  focus:ring-4 focus:outline-none  bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                ></path>
+              </svg>
+              <span className="sr-only">Search</span>
+            </button>
+          </form>
+        </div>
+
+        {/* filter */}
       </div>
-      {/* add todo button */}
 
       {/* todo from */}
       {addTodo ? (
@@ -102,7 +161,7 @@ function AddTodo() {
                 onChange={(e) => setNewTodo(e.target.value)}
                 id="floating_email"
                 autoComplete="off"
-                className="block md:py-2.5 py-1 px-0 w-full text-lg text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className="block md:py-2.5 py-1 px-0 w-full text-lg  bg-transparent border-0 border-b-2  appearance-none text-white border-gray-600  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder="Enter task"
                 required
               />

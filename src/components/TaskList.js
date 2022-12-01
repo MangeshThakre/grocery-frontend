@@ -5,7 +5,7 @@ import { TodoContext } from "../context/Contex.js";
 
 function TaskList({ currentTask, currentTodo }) {
   const URL = process.env.REACT_APP_URL;
-  const { todoData, setTodoData, deletePopUp, setDeletePopUp, notify } =
+  const { todoData, setTodoData, setDeletePopUp, notify } =
     useContext(TodoContext);
   const [isEdit, setIsEdit] = useState(false);
   const [task, setTask] = useState(currentTask);
@@ -19,8 +19,8 @@ function TaskList({ currentTask, currentTodo }) {
     setIsTaskLoading(true);
     try {
       const response = await axios({
-        method: "put",
-        url: URL + "/api/update_task",
+        method: "patch",
+        url: URL + "/v1/task",
         data: {
           todoId: currentTodo._id,
           taskId: currentTask._id,

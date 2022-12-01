@@ -14,8 +14,8 @@ function AddTodo({ currentTodo }) {
     try {
       const response = await axios({
         method: "post",
-        url: URL + "/api/create_task",
-        data: { todoId: currentTodo._id, taskObj: newTask },
+        url: URL + "/v1/task",
+        data: { todoId: currentTodo._id, tasks: [newTask] },
       });
 
       const data = await response.data.data;

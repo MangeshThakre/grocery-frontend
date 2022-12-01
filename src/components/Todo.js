@@ -6,21 +6,26 @@ import AddTask from "./AddTask.js";
 
 function Todo({ todo, showTodoList, setShowTodoList }) {
   const URL = process.env.REACT_APP_URL;
-  const { todoData, setTodoData, deletePopUp, setDeletePopUp, notify } =
+  const { todoData, setTodoData, setDeletePopUp, notify } =
     useContext(TodoContext);
   const [isTodoTitleEdit, setIsTodoTitleEdit] = useState(false);
   const [currentTodo, setCurrentTodo] = useState(todo);
   const titleInputRef = useRef(null);
   const [isTitleLoading, setIstitleLoading] = useState(false);
-
-  async function handleUpdateTodoTitle(e) {
+  const [isImportant, setIsImportant] = useState(todo.isImportant);
+  // update todo
+  async function handleUpdateTodo(e) {
     e.preventDefault();
     setIstitleLoading(true);
     try {
       const response = await axios({
-        method: "put",
-        url: URL + "/api/update_todo_title",
-        data: { todoId: currentTodo._id, title: currentTodo.title },
+        method: "patch",
+        url: URL + "/v1/todo",
+        data: {
+          todoId: currentTodo._id,
+          title: currentTodo.title,
+          isImportant,
+        },
       });
       const data = response.data;
       const newtodoData = todoData.map((todo) => {
@@ -43,7 +48,7 @@ function Todo({ todo, showTodoList, setShowTodoList }) {
   return (
     <div id="accordion-flush  " className="border-0 border-b-2 border-gray-500">
       <form
-        onSubmit={(e) => handleUpdateTodoTitle(e)}
+        onSubmit={(e) => handleUpdateTodo(e)}
         className="flex items-center justify-between w-full font-medium text-left  focus:ring-gray-800  text-gray-400   bg-gray-700 hover:bg-gray-800"
       >
         <button
@@ -51,7 +56,7 @@ function Todo({ todo, showTodoList, setShowTodoList }) {
           onClick={() =>
             !isTodoTitleEdit
               ? setShowTodoList((preVal) =>
-                  preVal == todo._id ? null : todo._id
+                  preVal === todo._id ? null : todo._id
                 )
               : null
           }

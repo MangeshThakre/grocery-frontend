@@ -9,18 +9,19 @@ function DeletePopUp({ todoData, setTodoData, deletePopUp, setDeletePopUp }) {
   const { notify } = useContext(TodoContext);
 
   const currentTodo = todoData.find((e) => e._id === deletePopUp.todoId);
-  // delete task
 
+  // delete task
   async function handleDeleteTask() {
     setIsDeleteLoading(true);
     try {
       const response = await axios({
         method: "delete",
-        url: `${URL}/api/delete_task/${deletePopUp.todoId}/${deletePopUp.taskId}`,
+        url: `${URL}/v1/task`,
+        data: { todoId: deletePopUp.todoId, taskId: deletePopUp.taskId },
       });
       const data = response.data;
       const newTasks = currentTodo.tasks.filter(
-        (e) => e._id != deletePopUp.taskId
+        (e) => e._id !== deletePopUp.taskId
       );
 
       const newCurrentTodo = {
@@ -41,13 +42,16 @@ function DeletePopUp({ todoData, setTodoData, deletePopUp, setDeletePopUp }) {
     }
   }
 
+  //// delete todo
   async function handleDeleteTodo() {
     setIsDeleteLoading(true);
     try {
       const response = await axios({
         method: "delete",
-        url: `${URL}/api/delete_todo/${deletePopUp.todoId}`,
+        url: `${URL}/v1/todo`,
+        data: { todoId: deletePopUp.todoId },
       });
+
       const data = response.data;
       const newTodoData = todoData.filter(
         (todo) => todo._id !== currentTodo._id
@@ -118,7 +122,7 @@ function DeletePopUp({ todoData, setTodoData, deletePopUp, setDeletePopUp }) {
                   data-modal-toggle="popup-modal"
                   type="button"
                   onClick={() =>
-                    deletePopUp.type == "Task"
+                    deletePopUp.type === "Task"
                       ? handleDeleteTask()
                       : handleDeleteTodo()
                   }
