@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState, useContext } from "react";
-import { TodoContext } from "../context/Contex";
+import { TodoContext } from "../../context/Contex";
 
 function DeletePopUp({ todoData, setTodoData, deletePopUp, setDeletePopUp }) {
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);

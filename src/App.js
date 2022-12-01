@@ -1,7 +1,7 @@
 import "./App.css";
 import Navbar from "./components/Navbar.js";
 
-import DeletePopUp from "./components/DeletePopUp";
+import DeletePopUp from "./components/popup/DeletePopUp.js";
 import { ToastContainer } from "react-toastify";
 import {
   BrowserRouter as Router,
@@ -18,6 +18,7 @@ import github from "./assets/GitHub.png";
 
 import { TodoContext } from "./context/Contex";
 import { useContext, useEffect } from "react";
+import FilterPopUp from "./components/popup/FilterPopUp";
 function App() {
   const navigate = useNavigate();
   const {
@@ -27,6 +28,8 @@ function App() {
     setUserData,
     notify,
     setDeletePopUp,
+    showFilterPopUp,
+    setShowFilterPopUp,
   } = useContext(TodoContext);
 
   useEffect(() => {
@@ -93,6 +96,8 @@ function App() {
           setDeletePopUp={setDeletePopUp}
         />
       ) : null}
+      <FilterPopUp />
+
       <ToastContainer />
     </div>
   );

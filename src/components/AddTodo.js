@@ -9,8 +9,14 @@ function AddTodo() {
   const [newTodo, setNewTodo] = useState("");
   const newTodoInput = useRef(null);
   const [isNewTodoLoading, setIsNewTodoLoading] = useState(false);
-  const { todoData, setTodoData, notify, userData, setSearch } =
-    useContext(TodoContext);
+  const {
+    todoData,
+    setTodoData,
+    notify,
+    userData,
+    setSearch,
+    setShowFilterPopUp,
+  } = useContext(TodoContext);
 
   async function handlenewTodo(e) {
     e.preventDefault();
@@ -72,10 +78,12 @@ function AddTodo() {
           Add Todo
         </button>
         {/* add todo button */}
-        {/* filter */}
-
-        <div>
-          <form className="flex items-center" onSubmit={(e) => handleSearch(e)}>
+        {/* search */}
+        <div className="flex">
+          <form
+            className=" mr-4 flex items-center"
+            onSubmit={(e) => handleSearch(e)}
+          >
             <label htmlFor="simple-search" className="sr-only">
               Search
             </label>
@@ -123,9 +131,32 @@ function AddTodo() {
               <span className="sr-only">Search</span>
             </button>
           </form>
-        </div>
+          {/* search end */}
 
-        {/* filter */}
+          {/* filter  toddle*/}
+          <button
+            onClick={() => setShowFilterPopUp(true)}
+            type="button"
+            className="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+              ></path>
+            </svg>
+            <span className="sr-only">Icon description</span>
+          </button>
+          {/* filter */}
+        </div>
       </div>
 
       {/* todo from */}
