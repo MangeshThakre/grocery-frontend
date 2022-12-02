@@ -1,12 +1,13 @@
 import React from "react";
 
 import { useState, useContext } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, Navigate } from "react-router-dom";
 import account from "../../services/appwriteConfig.js";
 import { v4 as uuidv4 } from "uuid";
 import { TodoContext } from "../../context/Contex.js";
 
 function SignUp() {
+  const navigate = navigate;
   const { notify } = useContext(TodoContext);
   const [isSignUpLoading, setIsSignUpLoading] = useState(false);
   const URL = process.env.REACT_APP_URL;
@@ -27,8 +28,8 @@ function SignUp() {
         userData.name
       );
       await account.createEmailSession(userData.email, userData.password);
-      const varification = await account.createVerification(URL + "/home");
-
+      // const varification = await account.createVerification(URL + "/home");
+      navigate("/home");
       setIsSignUpLoading(false);
     } catch (error) {
       setIsSignUpLoading(false);
