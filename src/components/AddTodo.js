@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useState, useContext, useRef, useEffect } from "react";
 import { TodoContext } from "../context/Contex";
+import Filter from "./Filter";
 
 function AddTodo() {
   const URL = process.env.REACT_APP_URL;
@@ -51,7 +52,7 @@ function AddTodo() {
 
   return (
     <div className=" flex flex-col justify-between">
-      <div className="  my-10 flex justify-between px-4 items-end  flex-wrap">
+      <div className="  my-10 flex justify-between px-4 items-end  flex-wrap gap-3">
         {/* add Button */}
         <button
           disabled={addTodo}
@@ -79,7 +80,7 @@ function AddTodo() {
         </button>
         {/* add todo button */}
         {/* search */}
-        <div className="flex">
+        <div className="flex flex-wrap gap-3">
           <form
             className=" mr-4 flex items-center"
             onSubmit={(e) => handleSearch(e)}
@@ -134,27 +135,8 @@ function AddTodo() {
           {/* search end */}
 
           {/* filter  toddle*/}
-          <button
-            onClick={() => setShowFilterPopUp(true)}
-            type="button"
-            className="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800"
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
-              ></path>
-            </svg>
-            <span className="sr-only">Icon description</span>
-          </button>
+          <Filter />
+
           {/* filter */}
         </div>
       </div>

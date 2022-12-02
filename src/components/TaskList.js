@@ -70,7 +70,8 @@ function TaskList({ currentTask, currentTodo }) {
         className="flex items-center space-x-4"
         onSubmit={(e) => handleEditTask(e)}
       >
-        <div className="w-full flex  gap-8">
+        {/* left */}
+        <div className="w-full flex   gap-2 md:gap-8">
           {/* checked */}
           <div className="flex items-center">
             {checked ? (
@@ -152,8 +153,8 @@ function TaskList({ currentTask, currentTodo }) {
               autoComplete="off"
               className={
                 isEdit
-                  ? "block md:py-2.5 mb-1 py-1 px-0 w-full text-lg text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  : "block py-2.5 px-0 w-full text-lg text-gray-300 bg-transparent border-0   appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  ? "block  text-sm md:py-2.5 mb-1 py-1 px-0 w-full md:text-lg text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  : "block  text-sm py-2.5 px-0 w-full  md:text-lg text-gray-300 bg-transparent border-0   appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               }
               style={!checked ? { fontWeight: "400", color: "white" } : null}
               placeholder="Enter task"
@@ -164,13 +165,14 @@ function TaskList({ currentTask, currentTodo }) {
           </div>
           {/* input field */}
         </div>
+        {/* left end */}
         {/* edit delete button */}
         <div className="inline-flex   gap-4 items-center text-base font-semibold text-white">
           {isEdit ? (
             <>
               <button type="submit">
                 <svg
-                  className="w-6 h-6 rotate-90  text-blue-500 cursor-pointer"
+                  className="w-4 h-4   md:w-6  md:h-6 rotate-90  text-blue-500 cursor-pointer"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -184,7 +186,7 @@ function TaskList({ currentTask, currentTodo }) {
                   setIsEdit(false);
                   inputRef.current.value = currentTask.task;
                 }}
-                className="w-6 h-6    cursor-pointer text-red-500"
+                className="w-4 h-4   md:w-6  md:h-6    cursor-pointer text-red-500"
                 data-tooltip-target="tooltip-animation"
                 data-tooltip-trigger="hover"
                 fill="currentColor"
@@ -203,7 +205,7 @@ function TaskList({ currentTask, currentTodo }) {
               {/* edit button */}
               <svg
                 onClick={() => setIsEdit((preVal) => !preVal)}
-                className="w-6 h-6 cursor-pointer  text-green-500"
+                className="w-4 h-4   md:w-6  md:h-6 cursor-pointer  text-green-500"
                 data-tooltip-target="tooltip-animation"
                 data-tooltip-trigger="hover"
                 fill="currentColor"
@@ -230,7 +232,7 @@ function TaskList({ currentTask, currentTodo }) {
                   })
                 }
                 data-tooltip-trigger="hover"
-                className="w-6 h-6    cursor-pointer text-red-500"
+                className="w-4 h-4   md:w-6  md:h-6    cursor-pointer text-red-500"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"

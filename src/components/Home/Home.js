@@ -8,7 +8,7 @@ import { useContext } from "react";
 import { TodoContext } from "../../context/Contex.js";
 
 function Home() {
-  const { todoData, setTodoData, userData, notify, search } =
+  const { todoData, setTodoData, userData, notify, search, filter } =
     useContext(TodoContext);
 
   const [showTodoList, setShowTodoList] = useState(null);
@@ -21,7 +21,11 @@ function Home() {
     setTodoDataLoading(true);
     try {
       const response = await axios.get(
-        `${URL}/v1/todos/${userData.$id}?withTasks=${true}&search=${search}`
+        `${URL}/v1/todos/${
+          userData.$id
+        }?withTasks=${true}&search=${search}&isImportant=${
+          filter.isImportant
+        }&from=${filter.from}&to=${filter.to}`
       );
       const data = response.data.data;
       setTodoData(data.reverse());
@@ -34,7 +38,7 @@ function Home() {
 
   useEffect(() => {
     getAllTodoDate();
-  }, [userData, search]);
+  }, [userData, search, filter]);
 
   return (
     <div className="flex flex-col    overflow-y-auto">

@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .App {
   text-align: center;
 }
@@ -21,6 +25,13 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.react-datepicker__input-container > input {
+  background-color: #373d46;
+  color: white;
+  border-radius: 0.5rem;
+  border: #4e525b solid 1px;
 }
 
 @keyframes App-logo-spin {

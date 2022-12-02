@@ -9,7 +9,7 @@ import { TodoContext } from "../../context/Contex.js";
 function SignUp() {
   const { notify } = useContext(TodoContext);
   const [isSignUpLoading, setIsSignUpLoading] = useState(false);
-  let navigate = useNavigate();
+  const URL = process.env.REACT_APP_URL;
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -27,11 +27,12 @@ function SignUp() {
         userData.name
       );
       await account.createEmailSession(userData.email, userData.password);
-      navigate("/home");
+      const varification = await account.createVerification(URL + "/home");
+
       setIsSignUpLoading(false);
     } catch (error) {
       setIsSignUpLoading(false);
-      notify(e.message, "error");
+      notify(error.message, "error");
     }
   }
 
@@ -47,7 +48,7 @@ function SignUp() {
               Your Name
             </label>
             <input
-              type="email"
+              type="text"
               id="text"
               className="text-sm rounded-lg  block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
               placeholder="Enter Your Name"

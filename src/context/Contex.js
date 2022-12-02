@@ -7,8 +7,7 @@ const Context = ({ children }) => {
   const [todoData, setTodoData] = useState([]);
   const [userData, setUserData] = useState({});
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState({ isComplete: "", from: "", to: "" });
-  const [showFilterPopUp, setShowFilterPopUp] = useState(false);
+  const [filter, setFilter] = useState({ isImportant: "", from: "", to: "" });
   const [deletePopUp, setDeletePopUp] = useState({
     display: false,
     todoId: "",
@@ -42,8 +41,6 @@ const Context = ({ children }) => {
         setSearch,
         filter,
         setFilter,
-        showFilterPopUp,
-        setShowFilterPopUp,
       }}
     >
       {children}

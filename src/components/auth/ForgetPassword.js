@@ -1,22 +1,22 @@
 import React from "react";
-import { useState, useContext } from "react";
-import { TodoContext } from "../../context/Contex";
-import account from "../../services/appwriteConfig";
-import { useNavigate, Link } from "react-router-dom";
-function SignIn() {
-  const [user, setUser] = useState({ email: "", password: "" });
-  const navigate = useNavigate();
-  const { notify } = useContext(TodoContext);
-  const [loginLoading, setIsloginLoading] = useState(false);
-  async function handleSubmitSignIn(e) {
+import { useState, useCallback } from "react";
+import { TodoContext } from "../../context/Contex.js";
+import { Link } from "react-router-dom";
+import account from "../../services/appwriteConfig.js";
+
+function ForgetPassword() {
+  const URL = process.env.REACT_APP_URL;
+  const { notify } = useCallback(TodoContext);
+  const [email, setEmail] = useState("");
+  const [loding, setLoding] = useState(false);
+  async function handleSubmit(e) {
     e.preventDefault();
-    setIsloginLoading(true);
-    navigate("/home");
+    setLoding(true);
     try {
-      await account.createEmailSession(user.email, user.password);
-      setIsloginLoading(false);
+      await account.createRecovery(email, URL + "/reset_password");
+      setLoding(false);
     } catch (error) {
-      setIsloginLoading(false);
+      setLoding(false);
       notify(error.message, "error");
     }
   }
@@ -24,7 +24,7 @@ function SignIn() {
   return (
     <div className="   top-0 left-0 flex absolute h-full w-full justify-center items-center">
       <div className="max-w-sm p-6  rounded-lg shadow-md bg-gray-800 border-gray-700">
-        <form onSubmit={(e) => handleSubmitSignIn(e)}>
+        <form onSubmit={(e) => handleSubmit(e)}>
           <div className="mb-6">
             <label
               htmlFor="email"
@@ -33,31 +33,13 @@ function SignIn() {
               Your email
             </label>
             <input
-              onChange={(e) => setUser({ ...user, email: e.target.value })}
+              onChange={(e) => setEmail(e.target.value)}
               type="email"
               id="email"
               className="text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-              placeholder="name@flowbite.com"
+              placeholder="Enter your Email"
               required
               autoComplete="off"
-            />
-          </div>
-          <div className="mb-6">
-            <label
-              htmlFor="password"
-              className="block mb-2 text-sm font-medium  text-white"
-            >
-              Enter password
-            </label>
-            <input
-              type="password"
-              id="password"
-              className=" text-sm rounded-lg  block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-              required
-              minLength="8"
-              maxLength="8"
-              autoComplete="off"
-              onChange={(e) => setUser({ ...user, password: e.target.value })}
             />
           </div>
 
@@ -65,8 +47,8 @@ function SignIn() {
             type="submit"
             className="text-white  focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
           >
-            SignIn
-            {loginLoading ? (
+            send
+            {loding ? (
               <svg
                 aria-hidden="true"
                 role="status"
@@ -100,4 +82,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default ForgetPassword;

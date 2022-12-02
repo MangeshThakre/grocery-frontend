@@ -9,16 +9,16 @@ import {
   Route,
   useNavigate,
 } from "react-router-dom";
-import SignUp from "./components/signin-signup/SignUp.js";
-import SignIn from "./components/signin-signup/SignIn.js";
+import SignUp from "./components/auth/SignUp.js";
+import SignIn from "./components/auth/SignIn.js";
 import Home from "./components/Home/Home";
 import account from "./services/appwriteConfig";
+import ForgetPassword from "./components/auth/ForgetPassword";
 // img icon svg
 import github from "./assets/GitHub.png";
 
 import { TodoContext } from "./context/Contex";
 import { useContext, useEffect } from "react";
-import FilterPopUp from "./components/popup/FilterPopUp";
 function App() {
   const navigate = useNavigate();
   const {
@@ -56,25 +56,24 @@ function App() {
       <Routes>
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/signIn" element={<SignIn />} />
+        <Route path="/forget_password" element={<ForgetPassword />} />
+
         {/* main section */}
         <Route path="/home" element={<Home />} />
         {/* main section end */}
       </Routes>
-
       {/* footer */}
       <div className="flex-1 w-full   flex  items-end  mt-2 ">
-        <footer
-          className="bg-gray-700 h-14 w-full flex   justify-between   items-center"
-          style={{ padding: "0 4rem" }}
-        >
+        <footer className="bg-gray-700 h-14 w-full flex   justify-between   items-center    px-4 ">
           <a
             rel="noreferrer"
             target="_blank"
             href="https://github.com/MangeshThakre/todo_node_app"
             className="flex items-center h-8 gap-2 rounded-lg     px-2   bg-transparent  hover:bg-gray-600 "
           >
-            <img src={github} className="w-6" alt="git" />
-            <p className="text-gray-400">Sorce Code</p>
+            <img src={github} className="w-6  " alt="git" />
+
+            <p className="text-gray-400 text-sm  md:text-base">Sorce Code</p>
           </a>
 
           <a
@@ -82,12 +81,15 @@ function App() {
             href="https://github.com/MangeshThakre"
             target="_blank"
           >
-            <p className="text-gray-400"> Build by MangeshThakre 😀</p>
+            <p className="text-gray-400     text-sm  md:text-base">
+              {" "}
+              Build by
+              <span className="  font-bold"> MangeshThakre 😀 </span>
+            </p>
           </a>
         </footer>
       </div>
       {/* footer  end*/}
-
       {deletePopUp.display ? (
         <DeletePopUp
           todoData={todoData}
@@ -96,8 +98,6 @@ function App() {
           setDeletePopUp={setDeletePopUp}
         />
       ) : null}
-      <FilterPopUp />
-
       <ToastContainer />
     </div>
   );

@@ -51,6 +51,7 @@ function Todo({ todo, showTodoList, setShowTodoList }) {
         onSubmit={(e) => handleUpdateTodo(e)}
         className="flex items-center justify-between w-full font-medium text-left  focus:ring-gray-800  text-gray-400   bg-gray-700 hover:bg-gray-800"
       >
+        {/* left   */}
         <button
           type="button"
           onClick={() =>
@@ -98,7 +99,7 @@ function Todo({ todo, showTodoList, setShowTodoList }) {
           {/*  arrwo svg*/}
 
           {/* todo title */}
-          <span className="w-2/4 cursor-pointer">
+          <span className=" w-1/2 md:w-2/4     cursor-pointer">
             {isTodoTitleEdit ? (
               <input
                 type="text"
@@ -106,15 +107,14 @@ function Todo({ todo, showTodoList, setShowTodoList }) {
                 onChange={(e) =>
                   setCurrentTodo((preVal) => {
                     return {
-                      _id: preVal._id,
+                      ...preVal,
                       title: e.target.value,
-                      tasks: preVal.tasks,
                     };
                   })
                 }
                 id="floating_email"
                 autoComplete="off"
-                className="block md:py-2.5 py-1 px-0 w-full text-lg text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className="block md:py-2.5 text-sm py-1 px-0 w-full md:text-lg text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder="Enter task"
                 disabled={!isTodoTitleEdit}
                 required
@@ -122,7 +122,7 @@ function Todo({ todo, showTodoList, setShowTodoList }) {
               />
             ) : (
               <span
-                className=" block py-2.5 px-0 text-lg w-full text-gray-300 bg-transparent border-0   appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className="  text-sm   block py-2.5 px-0 md:text-lg w-full text-gray-300 bg-transparent border-0   appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 style={
                   showTodoList === currentTodo._id
                     ? { color: "white", fontWeight: "600" }
@@ -135,14 +135,65 @@ function Todo({ todo, showTodoList, setShowTodoList }) {
           </span>
           {/* todo title  */}
         </button>
-
+        {/*  left */}
         {/* edit deleter button */}
         <div className="flex items-center justify-between">
           {isTodoTitleEdit ? (
             <>
+              {!todo.isImportant ? (
+                <div
+                  className="mr-1 cursor-pointer flex items-center justify-center rounded-full w-8 h-8 hover:bg-gray-700"
+                  onClick={() =>
+                    setCurrentTodo((preVal) => {
+                      return {
+                        ...currentTodo,
+                        isImportant: !currentTodo.isImportant,
+                      };
+                    })
+                  }
+                >
+                  <svg
+                    className=" w-4 h-4   md:w-6 md:h-6"
+                    fill={currentTodo.isImportant ? "yellow" : "none"}
+                    stroke={currentTodo.isImportant ? "yellow" : "currentColor"}
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+                    ></path>
+                  </svg>
+                </div>
+              ) : (
+                <div
+                  className="mr-1 cursor-pointer flex items-center justify-center rounded-full w-8 h-8  hover:bg-gray-700"
+                  onClick={() =>
+                    setCurrentTodo((preVal) => {
+                      return {
+                        ...currentTodo,
+                        isImportant: !currentTodo.isImportant,
+                      };
+                    })
+                  }
+                >
+                  <svg
+                    className=" w-4 h-4   md:w-6 md:h-6"
+                    fill={currentTodo.isImportant ? "yellow" : "none"}
+                    stroke={currentTodo.isImportant ? "yellow" : "currentColor"}
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                  </svg>
+                </div>
+              )}
+
               <button
                 type="submit"
-                className=" flex justify-center items-center cursor-pointer py-2 mr-3 px-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none "
+                className=" flex justify-center     items-center cursor-pointer  mr-3 md:py-2 py-1  md:px-3 px-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none "
               >
                 Save
                 {isTitleLoading ? (
@@ -172,23 +223,34 @@ function Todo({ todo, showTodoList, setShowTodoList }) {
                 onClick={() => {
                   setIsTodoTitleEdit(false);
                 }}
-                className="  cursor-pointer py-2 focus:outline-none px-3 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-xs  mr-2 "
+                className="  cursor-pointer   md:py-2 py-1  md:px-3 px-2 focus:outline-none  text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-xs  mr-2 "
               >
                 Cancle
               </div>
             </>
           ) : (
             <>
+              {currentTodo.isImportant ? (
+                <svg
+                  className="md:w-6 md:h-6  h-4 w-4 mr-2"
+                  fill="yellow"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+              ) : null}
+
               <div
                 type="button"
                 onClick={() => setIsTodoTitleEdit(true)}
-                className="cursor-pointer py-2 focus:outline-none px-3  text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 rounded-lg text-xs  mr-2 "
+                className="cursor-pointer  focus:outline-none  md:py-2 py-1  md:px-3 px-2  text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 rounded-lg text-xs  mr-2 "
               >
                 Edit
               </div>
               <div
                 type="button"
-                className="cursor-pointer py-2 focus:outline-none px-3 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-xs  mr-2 "
+                className="cursor-pointer md:py-2 py-1 focus:outline-none md:px-3 px-2 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-xs  mr-2 "
                 onClick={() =>
                   setDeletePopUp({
                     todoId: currentTodo._id,
