@@ -6,11 +6,12 @@ import account from "../../services/appwriteConfig";
 import { useNavigate } from "react-router-dom";
 
 function LogoutPopup({ showLogoutPopUp, setShowLogoutPopuot }) {
-  const { notify } = useContext(TodoContext);
+  const { notify, setUserData } = useContext(TodoContext);
   const navigate = useNavigate();
   async function handleLogout() {
     try {
       await account.deleteSessions();
+      setUserData({});
       navigate("/signin");
       setShowLogoutPopuot(false);
     } catch (error) {

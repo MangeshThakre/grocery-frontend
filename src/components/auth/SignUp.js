@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import { TodoContext } from "../../context/Contex.js";
 
 function SignUp() {
-  const navigate = navigate;
+  const navigate = useNavigate();
   const { notify } = useContext(TodoContext);
   const [isSignUpLoading, setIsSignUpLoading] = useState(false);
   const URL = process.env.REACT_APP_URL;
@@ -29,7 +29,7 @@ function SignUp() {
       );
       await account.createEmailSession(userData.email, userData.password);
       // const varification = await account.createVerification(URL + "/home");
-      navigate("/home");
+      // navigate("/home");
       setIsSignUpLoading(false);
     } catch (error) {
       setIsSignUpLoading(false);
@@ -71,7 +71,7 @@ function SignUp() {
               type="email"
               id="email"
               className="text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-              placeholder="name@flowbite.com"
+              placeholder="Enter Your Email"
               required
               autoComplete="off"
               onChange={(e) =>

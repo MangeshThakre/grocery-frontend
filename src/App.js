@@ -56,11 +56,8 @@ function App() {
       <Routes>
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
-        <Route path="/forget_password" element={<ForgetPassword />} />
-
-        {/* main section */}
+        {/* <Route path="/forget_password" element={<ForgetPassword />} /> */}
         <Route path="/home" element={<Home />} />
-        {/* main section end */}
       </Routes>
       {/* footer */}
       <div className="flex-1 w-full   flex  items-end  mt-2 ">

@@ -71,7 +71,7 @@ function ForgetPassword() {
           <div className="flex justify-between mt-6">
             <p>
               Dont have an account ?{" "}
-              <Link to="/signUp" className="text-blue-500">
+              <Link to="/signup" className="text-blue-500">
                 Register
               </Link>
             </p>

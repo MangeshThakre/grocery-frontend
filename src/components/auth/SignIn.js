@@ -11,10 +11,11 @@ function SignIn() {
   async function handleSubmitSignIn(e) {
     e.preventDefault();
     setIsloginLoading(true);
-    navigate("/home");
     try {
       await account.createEmailSession(user.email, user.password);
       setIsloginLoading(false);
+      window.location.reload();
+      // navigate("/home");
     } catch (error) {
       setIsloginLoading(false);
       notify(error.message, "error");
