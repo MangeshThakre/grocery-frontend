@@ -13,7 +13,6 @@ import SignUp from "./components/auth/SignUp.js";
 import SignIn from "./components/auth/SignIn.js";
 import Home from "./components/Home/Home";
 import account from "./services/appwriteConfig";
-import ForgetPassword from "./components/auth/ForgetPassword";
 // img icon svg
 import github from "./assets/GitHub.png";
 
@@ -56,7 +55,6 @@ function App() {
       <Routes>
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
-        {/* <Route path="/forget_password" element={<ForgetPassword />} /> */}
         <Route path="/home" element={<Home />} />
       </Routes>
       {/* footer */}

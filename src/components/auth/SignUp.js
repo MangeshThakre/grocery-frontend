@@ -29,7 +29,7 @@ function SignUp() {
       );
       await account.createEmailSession(userData.email, userData.password);
       // const varification = await account.createVerification(URL + "/home");
-      // navigate("/home");
+      navigate("/home");
       setIsSignUpLoading(false);
     } catch (error) {
       setIsSignUpLoading(false);
