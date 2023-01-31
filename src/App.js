@@ -7,7 +7,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useNavigate,
+  useNavigate
 } from "react-router-dom";
 import SignUp from "./components/auth/SignUp.js";
 import SignIn from "./components/auth/SignIn.js";
@@ -15,7 +15,6 @@ import Home from "./components/Home/Home";
 import account from "./services/appwriteConfig";
 // img icon svg
 import github from "./assets/GitHub.png";
-
 import { TodoContext } from "./context/Contex";
 import { useContext, useEffect } from "react";
 function App() {
@@ -26,9 +25,7 @@ function App() {
     deletePopUp,
     setUserData,
     notify,
-    setDeletePopUp,
-    showFilterPopUp,
-    setShowFilterPopUp,
+    setDeletePopUp
   } = useContext(TodoContext);
 
   useEffect(() => {
@@ -51,7 +48,6 @@ function App() {
   return (
     <div className="App-header flex flex-col justify-start">
       <Navbar />
-
       <Routes>
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
@@ -67,10 +63,8 @@ function App() {
             className="flex items-center h-8 gap-2 rounded-lg     px-2   bg-transparent  hover:bg-gray-600 "
           >
             <img src={github} className="w-6  " alt="git" />
-
             <p className="text-gray-400 text-sm  md:text-base">Sorce Code</p>
           </a>
-
           <a
             rel="noreferrer"
             href="https://github.com/MangeshThakre"
