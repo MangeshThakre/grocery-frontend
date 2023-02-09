@@ -139,6 +139,7 @@ function ListComponent({ item, setItems, items }) {
             placeholder="quentity"
             required
             disabled={handleDisable()}
+            min="1"
           />
         </div>
         {/* quentity */}
@@ -160,12 +161,6 @@ function ListComponent({ item, setItems, items }) {
       {isNewItem ? (
         <>
           <button
-            type="submit"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-          >
-            {loading ? "...." : "Add"}
-          </button>
-          <button
             type="button"
             className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
             onClick={() =>
@@ -175,6 +170,12 @@ function ListComponent({ item, setItems, items }) {
             }
           >
             cancle
+          </button>
+          <button
+            type="submit"
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          >
+            {loading ? "...." : "Add"}
           </button>
         </>
       ) : (
@@ -205,9 +206,14 @@ function ListComponent({ item, setItems, items }) {
             <>
               {/* cancle edit  */}
               <button
-                onClick={() => setIsEdit(false)}
                 type="button"
                 className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                onClick={() => {
+                  setItemName(item.itemName);
+                  setItemQuertity(item.quantity);
+                  setItemUnit(item.unit);
+                  setIsEdit(false);
+                }}
               >
                 Cancle edit
               </button>
